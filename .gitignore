@@ -234,4 +234,4 @@ terraform.rc
 keys/
 
 # Temporary Exclusions
-./docker_postgres_sql
+docker_postgres_sql/
