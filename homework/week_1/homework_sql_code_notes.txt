@@ -1,0 +1,68 @@
+Question 1
+Pip version that ran on 3.12.8 is 24.3.1
+
+Question 2
+db:5433
+
+Question 3
+SELECT 
+    COUNT(*) AS total_trips,
+    SUM(CASE WHEN trip_distance <= 1 THEN 1 ELSE 0 END) AS up_to_1_mile,
+    SUM(CASE WHEN trip_distance > 1 AND trip_distance <= 3 THEN 1 ELSE 0 END) AS between_1_and_3_miles,
+    SUM(CASE WHEN trip_distance > 3 AND trip_distance <= 7 THEN 1 ELSE 0 END) AS between_3_and_7_miles,
+    SUM(CASE WHEN trip_distance > 7 AND trip_distance <= 10 THEN 1 ELSE 0 END) AS between_7_and_10_miles,
+    SUM(CASE WHEN trip_distance > 10 THEN 1 ELSE 0 END) AS over_10_miles
+FROM 
+    green_taxi_trips
+WHERE 
+    lpep_dropoff_datetime >= '2019-10-01' AND 
+    lpep_dropoff_datetime < '2019-11-01';
+
+
+104,802; 198,924; 109,603; 27,678; 35,189
+
+Question 4
+2019-10-31
+
+select *
+from green_taxi_trips
+where 1=1
+and trip_distance in (
+select max(trip_distance)
+from green_taxi_trips
+)
+
+Question 5
+East Harlem North, East Harlem South, Morningside Heights
+
+
+select cast(lpep_pickup_datetime as date), "Borough", "Zone", "service_zone", count(*) as trips
+, sum(total_amount) as total
+from green_taxi_trips a
+left join green_taxi_zones b
+on a."PULocationID" = b."LocationID"
+where cast(lpep_pickup_datetime as date) = date '2019-10-18'
+group by cast(lpep_pickup_datetime as date), "Borough", "Zone", "service_zone"
+order by total desc
+;
+
+Question 6
+JFK Airport
+
+
+select  "DOLocationID", c."Zone"
+, max(tip_amount) as total
+from green_taxi_trips a
+left join green_taxi_zones b
+on a."PULocationID" = b."LocationID"
+left join green_taxi_zones c
+on a."DOLocationID" = c."LocationID"
+where cast(lpep_pickup_datetime as date) >= date '2019-10-01' and cast(lpep_pickup_datetime as date) < date '2019-11-01'
+and "PULocationID" = 74
+group by "DOLocationID", c."Zone"
+order by total desc
+;
+
+
+Question 7
+terraform init, terraform apply -auto-approve, terraform destroy
