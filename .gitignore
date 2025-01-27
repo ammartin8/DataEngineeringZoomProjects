@@ -235,3 +235,4 @@ keys/
 
 # Temporary Exclusions
 docker_postgres_sql/
+notes.txt

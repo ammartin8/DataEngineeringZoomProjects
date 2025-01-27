@@ -1,0 +1,44 @@
+services:
+  pgdatabase:
+    image: postgres:13
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=ny_taxi
+    volumes:
+      - vol-pgdata:/var/lib/postgresql/data:rw
+    ports:
+      - "5432:5432"
+    networks:
+      - pg-network
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    volumes:
+      - vol-pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8080:80"
+
+  taxi_ingest:
+    build: .
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_HOST=pgdatabase
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=ny_taxi
+
+networks:
+  pg-network:
+    name: pg-network
+
+
+volumes:
+  vol-pgdata:
+    name: vol-pgdata
+  vol-pgadmin_data:
+    name: vol-pgadmin_data
