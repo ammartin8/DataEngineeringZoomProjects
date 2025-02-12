@@ -232,6 +232,8 @@ terraform.rc
 
 # My credentials
 keys/
+.json
+.env 
 
 # Temporary Exclusions
 docker_postgres_sql/
