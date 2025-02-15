@@ -230,11 +230,17 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# DuckDB and Other Databases
+*.duckdb
+*.db
+
 # My credentials
 keys/
-.json
+*.json
 .env 
 
 # Temporary Exclusions
 docker_postgres_sql/
 kestra_workflow/
+workshop_dlt/
+hm_assignment_4/
