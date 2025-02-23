@@ -233,6 +233,7 @@ terraform.rc
 # DuckDB and Other Databases
 *.duckdb
 *.db
+data/
 
 # My credentials
 keys/
@@ -243,4 +244,5 @@ keys/
 docker_postgres_sql/
 kestra_workflow/
 workshop_dlt/
-hm_assignment_4/
+homework/hm_assignment_4/kestra_files/
+homework/hm_assignment_4/docker_files/
